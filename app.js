@@ -1,15 +1,23 @@
 var express = require("express");
-var bodyParser = require("body-parser");
 
 var app = express();
-var jsonParser = bodyParser.json();
 
-app.get("/api/products", function(req, res){});
-app.get("/api/product/:id", function(req, res){
-    var id = req.params.id;
-});
-app.post("/api/product/new",jsonParser, function (req, res) {
-    if(!req.body) return res.sendStatus(400);
-})
-var port = process.env.PORT
-app.listen(port,function(){});
+var db = require('./db');
+
+
+global.__root   = __dirname + '/'; 
+
+// var UserController = require('./user/userController')
+// app.use('/users',UserController)
+
+app.post('/api', function (req, res) {
+    res.status(200).send('API works.');
+  });
+
+var AuthController = require(__root+'auth/AuthController');
+app.use('/api/auth', AuthController);
+
+var ProductController = require(__root+'product/ProductController')
+app.use('/api', ProductController);
+
+module.exports =app;

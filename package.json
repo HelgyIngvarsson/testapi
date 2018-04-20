@@ -2,8 +2,10 @@
   "name": "testapi",
   "version": "1.0.0",
   "dependencies": {
-    "express": "^4.14.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.16.0",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^8.2.1",
     "mongodb": "^2.2.22",
     "mongoose": "~4.13.0"
   },
@@ -12,6 +14,6 @@
     "npm": "5.6.x"
   },
   "scripts": {
-      "start": "node app.js"
+    "start": "node server.js"
   }
 }
