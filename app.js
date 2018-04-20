@@ -20,4 +20,9 @@ app.use('/api/auth', AuthController);
 var ProductController = require(__root+'product/ProductController')
 app.use('/api', ProductController);
 
+app.use(express.static(__dirname + "/public"));
+
+app.get("*",(req,res)=>{
+  res.sendfile("./index.html");
+})
 module.exports =app;
