@@ -1,6 +1,7 @@
 import { Component, style } from '@angular/core';
 
 import { SharedService } from './shared.service';
+import { HttpService} from './http.service';
 
 @Component({
     selector: 'index',
@@ -23,18 +24,26 @@ import { SharedService } from './shared.service';
     </nav>
     <div class="container-fluid">
     <router-outlet></router-outlet>
-    </div>`
+    </div>`,
+    providers: [HttpService]
 })
 export class AppComponent { 
     isUserLoggedIn: boolean;
 
-    constructor(private sharedService: SharedService) {
+    constructor(private sharedService: SharedService,private httpService: HttpService) {
         this.sharedService.IsUserLoggedIn.subscribe( value => {
             this.isUserLoggedIn = value;
         });
     }
 
+    ngOnInit(): void {
+        if(localStorage.getItem("currentUser")){
+            this.sharedService.IsUserLoggedIn.next(true)
+        }
+    }
+
     logout(){
-        this.sharedService.IsUserLoggedIn.next(false)        
+        this.sharedService.IsUserLoggedIn.next(false);   
+        this.httpService.logout();
         }
 }

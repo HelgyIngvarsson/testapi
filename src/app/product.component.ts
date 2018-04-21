@@ -24,7 +24,7 @@ import { ActivatedRoute} from '@angular/router';
             <td>{{product?.name}}</td>
             <td>{{product?.price}}</td>
             <td>{{product?.description}}</td>
-            <td>{{product?.createdBy.username}}</td>
+            <td>{{product?.createdBy?.username}}</td>
           </tr>          
         </tbody>
       </table>
@@ -32,14 +32,14 @@ import { ActivatedRoute} from '@angular/router';
 providers: [HttpService]
 })
 export class ProductComponent { 
+    product:Product = new Product();
     private id:string;
     private subscription: Subscription;
     constructor(private httpService: HttpService,private activateRoute: ActivatedRoute){
-        this.subscription = activateRoute.params.subscribe(params=>this.id=params['id']);
+        this.subscription = activateRoute.params.subscribe(params=>{this.id=params['id'];
+        this.httpService.getProduct(this.id).subscribe((data:Product) => this.product = data);
+      });
+       
     }
-    product:Product = new Product();
 
-    ngOnInit(): void {
-        this.httpService.getProduct(this.id).subscribe((data:Product) => this.product = data)
-    }
 }

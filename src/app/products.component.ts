@@ -5,7 +5,6 @@ import { Product } from './models/product';
 
 @Component({
     selector: 'products',
-    // templateUrl: './templates/products.html'
     template:`<div class="container">
     <table class="table">
         <thead>

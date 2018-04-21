@@ -15,7 +15,6 @@ var bcrypt = require('bcryptjs');
 var config = require('../config'); // get config file
 
 router.post('/login', function(req, res) {
-
   User.findOne({ username: req.body.username }, function (err, user) {
     if (err) return res.status(500).send('Error on the server.');
     if (!user) return res.status(404).send('No user found.');
@@ -38,7 +37,6 @@ router.post('/login', function(req, res) {
 
 router.post('/register', function(req, res) {
   var hashedPassword = bcrypt.hashSync(req.body.password, 8);
-
   User.create({
     username : req.body.username,
     password : hashedPassword
